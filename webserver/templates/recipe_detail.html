@@ -1,0 +1,23 @@
+<html>
+<body>
+  <h1>{{ recipe.name }}</h1>
+  <p>{{ recipe.description }}</p>
+  <!-- Ingredient, cooking directions -->
+  <h2>Ingredients</h2>
+  <ul>
+    {% for ingredient in ingredients %}
+      <li>{{ ingredient.name }}: {{ ingredient.quantity }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if user_liked %}
+    <button disabled>Liked</button>
+{% else %}
+    <form action="/like_recipe/{{ recipe.recipe_id }}" method="post">
+        <button type="submit">Like({{recipe.like_count}})</button>
+    </form>
+{% endif %}
+
+  <p><a href="/">Back to all recipes</a></p>
+</body>
+</html>

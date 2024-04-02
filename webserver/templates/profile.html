@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Profile Information</h1>
+    <h2>Profile Info: </h2>
+        <p>{{ profile_result[0]}}</p>
+    <h1>Liked Recipes</h1>
+    <ul>
+        {% for recipe in recipes %}
+            <li>{{ recipe.name }} - {{ recipe.description }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Followers</h2>
+    <ul>
+        {% for follower in followers %}
+        <li>{{ follower.username }}</li> <!-- Assuming the follower object has a username attribute -->
+        {% endfor %}
+    </ul>
+    <div><p><a href="/">Main Page</a></p></div>
+</body>
+</html>

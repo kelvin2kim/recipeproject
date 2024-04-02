@@ -1,0 +1,46 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Recipes</h1>
+
+  <div>
+    {% for n in data %}
+    <div><a href="/recipes/{{ n.recipe_id }}">
+      {% if n.recipe_id in popular_recipe_ids %}🌟{% endif %}{{ n.name }}
+    </a></div>
+    {% endfor %}
+  </div>
+
+<p><a href="/">Main Page</a></p>
+
+<form method="POST" action="/search">
+  <p>Search by recipe name: <input type="text" name="search_name"> <input type="submit" value="Search"></p>
+</form>
+
+<form method="POST" action="/login">
+  <input type="text" name="username" placeholder="Username" required>
+  <input type="password" name="password" placeholder="Password" required>
+  <button type="submit">Login</button>
+</form>
+
+<div>
+{% if session['user_id'] %}
+      <a href="/user/{{ session['user_id'] }}">Profile</a>
+  {% else %}
+      <p>Login to access your profile</p>
+  {% endif %}
+</div>
+<div>{% if session['user_id'] %}
+  <a href="/logout">Logout</a>
+{% endif %}</div>
+</body>
+
+
+</html>
