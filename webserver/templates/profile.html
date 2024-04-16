@@ -19,6 +19,12 @@
         <li>{{ follower.username }}</li> <!-- Assuming the follower object has a username attribute -->
         {% endfor %}
     </ul>
+    <h2>Favorite Dishes</h2>
+        <ul>
+            {% for dish in favorite_dishes %}
+            <li>{{ dish }}</li>
+            {% endfor %}
+        </ul>
     <div><p><a href="/">Main Page</a></p></div>
 </body>
 </html>
