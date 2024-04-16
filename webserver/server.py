@@ -253,8 +253,12 @@ def recipe_detail(recipe_id):
 
 	ingredients = g.conn.execute(text(ingredients_query), {"recipe_id": recipe_id}).fetchall()
 
+	# Fetch the instructions for the recipe 
+	instructionsQuery = "SELECT * FROM instructions WHERE recipe_id  = :recipe_id"
+	instructions = g.conn.execute(text(instructionsQuery), {"recipe_id": recipe_id}).fetchall()
+
 	# Render a template to display the recipe's details
-	return render_template("recipe_detail.html", recipe=recipe, ingredients=ingredients, user_liked=user_liked)
+	return render_template("recipe_detail.html", recipe=recipe, ingredients=ingredients, user_liked=user_liked, instructions=instructions)
 
 @app.route('/like_recipe/<recipe_id>', methods=['POST'])
 @login_required
@@ -300,8 +304,14 @@ def user_liked_recipes(user_id):
 	WHERE user_followers.followee_id = :user_id
     """
 	followers = g.conn.execute(text(followers_query), {"user_id": user_id}).fetchall()
+
+	favorite_dishes_query = """
+    SELECT favorite_dishes FROM users WHERE user_id = :user_id
+    """
+	favorite_dishes_result = g.conn.execute(text(favorite_dishes_query), {"user_id": user_id}).fetchone()
+	favorite_dishes = favorite_dishes_result[0] if favorite_dishes_result else []
 	
-	return render_template('profile.html', recipes=liked_recipes, profile_result=profile_result, followers=followers)
+	return render_template('profile.html', recipes=liked_recipes, profile_result=profile_result, followers=followers, favorite_dishes=favorite_dishes)
 
 @app.route('/login', methods=['POST'])
 def login():
