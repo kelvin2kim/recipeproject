@@ -18,6 +18,13 @@
     </form>
 {% endif %}
 
+<h2>Instructions</h2>
+  <ul>
+    {% for instruction in instructions %}
+      <li>{{ instruction.step_number }}: {{ instruction.description }}</li>
+    {% endfor %}
+  </ul>
+
   <p><a href="/">Back to all recipes</a></p>
 </body>
 </html>
